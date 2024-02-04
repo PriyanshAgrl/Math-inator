@@ -1,4 +1,4 @@
-// Future Update: Add the features to perform trigonometry, logarithm, unit conversion, stats functios, simplification of expressions, solution of simple algebra and more. 
+// Future Update: Add the features to perform trigonometry, logarithm, unit conversion, stats functios, simplification of expressions, solution of simple algebra and many more. 
 #include <stdio.h>
 #include <math.h>
 
