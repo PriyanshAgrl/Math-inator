@@ -1,8 +1,10 @@
-// Future Update: Add the features to perform trigonometry, logarithm, unit conversion, stats functios, simplification of expressions, solution of simple algebra and many more. 
+// Future Update: Add the features to perform unit conversion, stats functions, simplification of expressions, solution of simple algebra and many more. 
 #include <stdio.h>
 #include <math.h>
 
-// Define maximum history size
+// Defining Precision Tolerance
+#define EPSILON 1e-6
+// Defining maximum history size
 #define MAX_HISTORY 5 
 
 // Function Declaration Prototypes
@@ -14,6 +16,9 @@ int rem(int x, int y);            // Calculates the remainder of x divided by y
 float sqroot(float x);            // Computes the square root of x
 double power(float x, float y);   // Raises x to the power of y
 int fact(int x);                  // Calculates the factorial of x
+double logarithm(float x, float b);   // Log of (x) to the base b
+double trigo(float x, int r); 		// Trigonometric functions
+
 void displayHistory(double result, float history[], int *hCount); // Displays the recent history of results
 
 int main(void) {
@@ -29,10 +34,13 @@ int main(void) {
   printf("6. Square Root (√ )\n");
   printf("7. Power (^)\n");
   printf("8. Factorial (!)\n");
-  printf("9. Exit\n");
+  printf("9. Logarithm (log)\n");
+  printf("10. Trigonometry\n");
+  printf("0. Exit\n");
   
   // Declaring variables
   int choice;     // User's choice for the operation
+	int tchoice;		// User's choice for trigonometric function
   float a, b;     // Input numbers for calculations
   double result;  // Result of the mathematical operation
   char repeat;    // User's choice to restart for another calculation
@@ -42,7 +50,7 @@ int main(void) {
   // Main loop for user interactions
   do {
     // Prompting user for choice
-    printf("\nEnter your choice (1 - 9) : ");
+    printf("\nEnter your choice (0 - 10) : ");
     scanf(" %d", &choice);
     // Switch statement to handle different user choices
     switch (choice) {
@@ -131,13 +139,52 @@ int main(void) {
         }
         break;
       }
-      // Case 9: Exit option
+      // Case 9: Logarithm
       case 9: {
+        printf("Enter first number (argument): ");
+        scanf(" %f", &a);
+        printf("Enter second number (base): ");
+        scanf(" %f", &b);
+        result = logarithm(a, b);
+        printf("Result : Log (%g) to base %g = %g\n", a, b, result);
+        break;
+      }
+			// Case 10: Trigonometry
+      case 10: {
+				//  Displaying the available trigometric functions
+				printf("\nAvailable Trigonometric Functions:\n");
+				printf("1. Sine (sin)\n");
+				printf("2. Cosine (cos)\n");
+				printf("3. Tangent (tan)\n");
+				printf("4. Cotangent (cot)\n");
+				printf("5. Secant (sec)\n");
+				printf("6. Cosecant (cosec)\n");
+				printf("0. Back to main menu\n");
+				// Prompting user for choice
+				printf("\nEnter your choice (0 - 6) : ");
+				scanf(" %d", &tchoice);
+				if (tchoice == 0) {
+					// go back to main menu 
+					break;
+				} else if (tchoice >= 1 && tchoice <= 6) {
+					printf("Enter the angle (in degrees): ");
+					scanf(" %f", &a);
+					result = trigo(a, tchoice);
+					if (isnan(result) == 0) {
+						printf("Result : Trigo ratio of %g = %g\n", a, result); // will need to improve the result display
+					}
+				} else {
+					printf("Invalid choice. Please Enter a digit from 0 to 6.\n");
+				}
+				break;
+			}
+      // Case 0: Exit option
+      case 0: {
         break;
       }
       // Default case for invalid choice
       default: {
-        printf("Invalid choice. Please Enter a digit from 1 to 9.\n");
+        printf("Invalid choice. Please Enter a digit from 0 to 9.\n");
         break;
       }
     }
@@ -234,6 +281,61 @@ int fact(int x) {
     factN *= i;
   } 
   return factN;
+}
+
+double logarithm(float x, float b) {
+	return log(x) / log(b);
+}
+
+double trigo(float x, int r) {
+	double rad = x * (M_PI / 180.0);
+	switch(r) {
+		case 1:
+			if (fabs(sin(rad) - 0) < EPSILON) {
+				return 0.0;
+			} else {
+				return sin(rad);
+			}
+			break;
+		case 2:
+			if (fabs(cos(rad) - 0) < EPSILON) {
+				return 0.0;
+			} else {
+				return cos(rad);
+			}
+			break;
+		case 3:
+			if (fabs(cos(rad) - 0) < EPSILON) {
+				return INFINITY;
+			} else {
+			return tan(rad);
+			}
+			break;
+		case 4:
+			if (fabs(tan(rad) - 0) < EPSILON) {
+				return INFINITY;
+			} else {
+				return 1 / tan(rad);
+			}
+			break;
+		case 5:
+			if (fabs(cos(rad) - 0) < EPSILON) {
+				return INFINITY;
+			} else {
+				return 1 / cos(rad);
+			}
+			break;
+		case 6:
+			if (fabs(sin(rad) - 0) < EPSILON) {
+				return INFINITY;
+			} else {
+				return 1 / sin(rad);
+			}
+			break;
+		default:
+			printf("Invalid trigonometric function choice.\n");
+			return NAN;  // Default return value when no case matches
+	}
 }
 
 void displayHistory(double result, float history[], int *hCount) {
