@@ -8,16 +8,16 @@
 #define MAX_HISTORY 5 
 
 // Function Declaration Prototypes
-float add(float x, float y);      // Adds two numbers and returns the result
-float subtract(float x, float y); // Subtracts y from x and returns the result
-float product(float x, float y);  // Multiplies two numbers and returns the result
-float divide(float x, float y);   // Divides x by y and returns the result
-int rem(int x, int y);            // Calculates the remainder of x divided by y
-float sqroot(float x);            // Computes the square root of x
-double power(float x, float y);   // Raises x to the power of y
-int fact(int x);                  // Calculates the factorial of x
+double add(float x, float y);      // Adds two numbers and returns the result
+double subtract(float x, float y); // Subtracts y from x and returns the result
+double product(float x, float y);  // Multiplies two numbers and returns the result
+double divide(float x, float y);   // Divides x by y and returns the result
+int rem(int x, int y);             // Calculates the remainder of x divided by y
+double sqroot(float x);            // Computes the square root of x
+double power(float x, float y);    // Raises x to the power of y
+int fact(int x);                   // Calculates the factorial of x
 double logarithm(float x, float b);   // Log of (x) to the base b
-double trigo(float x, int r); 		// Trigonometric functions
+double trigo(float x, int r); 		 // Trigonometric functions
 
 void displayHistory(double result, float history[], int *hCount); // Displays the recent history of results
 
@@ -42,6 +42,7 @@ int main(void) {
   int choice;     // User's choice for the operation
 	int tchoice;		// User's choice for trigonometric function
   float a, b;     // Input numbers for calculations
+	int numscanned; // Input Validation
   double result;  // Result of the mathematical operation
   char repeat;    // User's choice to restart for another calculation
   float history[MAX_HISTORY];  // Array to store history
@@ -52,99 +53,179 @@ int main(void) {
     // Prompting user for choice
     printf("\nEnter your choice (0 - 10) : ");
     scanf(" %d", &choice);
+		
     // Switch statement to handle different user choices
     switch (choice) {
       // Case 1: Addition
       case 1: {
-        printf("Enter first number: ");
-        scanf(" %f", &a);
-        printf("Enter second number: ");
-        scanf(" %f", &b);
+        do {
+          printf("Enter first number: ");
+          numscanned = scanf(" %f", &a);
+          if (numscanned != 1) {
+            printf("Error: Invalid input. Please enter a valid number.\n");
+          }
+        } while (numscanned != 1);
+        do {
+          printf("Enter second number: ");
+          numscanned = scanf(" %f", &b);
+          if (numscanned != 1) {
+            printf("Error: Invalid input. Please enter a valid number.\n");
+          }
+        } while (numscanned != 1);
+
         result = add(a, b);
         printf("Result : %g + %g = %g\n", a, b, result);
         break;
       }
       // Case 2: Subtraction
       case 2: {
-        printf("Enter first number: ");
-        scanf(" %f", &a);
-        printf("Enter second number: ");
-        scanf(" %f", &b);
+				do {
+					printf("Enter first number: ");
+					numscanned = scanf(" %f", &a);
+					if (numscanned != 1) {
+						printf("Error: Invalid input. Please enter a valid number.\n");
+					}
+				} while (numscanned != 1);
+				do {
+					printf("Enter second number: ");
+					numscanned = scanf(" %f", &b);
+					if (numscanned != 1) {
+						printf("Error: Invalid input. Please enter a valid number.\n");
+					}
+				} while (numscanned != 1);
         result = subtract(a, b);
         printf("Result : %g - %g = %g\n", a, b, result);
         break;
       }
       // Case 3: Multiplication
       case 3: {
-        printf("Enter first number: ");
-        scanf(" %f", &a);
-        printf("Enter second number: ");
-        scanf(" %f", &b);
+				do {
+					printf("Enter first number: ");
+					numscanned = scanf(" %f", &a);
+					if (numscanned != 1) {
+						printf("Error: Invalid input. Please enter a valid number.\n");
+					}
+				} while (numscanned != 1);
+				do {
+					printf("Enter second number: ");
+					numscanned = scanf(" %f", &b);
+					if (numscanned != 1) {
+						printf("Error: Invalid input. Please enter a valid number.\n");
+					}
+				} while (numscanned != 1);
         result = product(a, b);
         printf("Result : %g * %g = %g\n", a, b, result);
         break;
       }
       // Case 4: Division
       case 4: {
-        printf("Enter first number: ");
-        scanf(" %f", &a);
-        printf("Enter second number: ");
-        scanf(" %f", &b);
+				do {
+					printf("Enter first number: ");
+					numscanned = scanf(" %f", &a);
+					if (numscanned != 1) {
+						printf("Error: Invalid input. Please enter a valid number.\n");
+					}
+				} while (numscanned != 1);
+				do {
+					printf("Enter second number: ");
+					numscanned = scanf(" %f", &b);
+					if (numscanned != 1) {
+						printf("Error: Invalid input. Please enter a valid number.\n");
+					}
+				} while (numscanned != 1);
         result = divide(a, b);
-        if (result != -1) {
+        if (!isnan(result)) {
           printf("Result : %g / %g = %g\n", a, b, result);
         }
         break;
       }
       // Case 5: Modulo
       case 5: {
-        printf("Enter first number: ");
-        scanf(" %f", &a);
-        printf("Enter second number: ");
-        scanf(" %f", &b);
+				do {
+					printf("Enter first number: ");
+					numscanned = scanf(" %f", &a);
+					if (numscanned != 1) {
+						printf("Error: Invalid input. Please enter a valid number.\n");
+					}
+				} while (numscanned != 1);
+				do {
+					printf("Enter second number: ");
+					numscanned = scanf(" %f", &b);
+					if (numscanned != 1) {
+						printf("Error: Invalid input. Please enter a valid number.\n");
+					}
+				} while (numscanned != 1);
         result = rem((int)a, (int)b);
         printf("Result : %d %% %d = %d\n", (int)a, (int)b, (int)result);
         break;
       }
       // Case 6: Square Root
       case 6: {
-        printf("Enter a number: ");
-        scanf(" %f", &a);
+				do {
+					printf("Enter a number: ");
+					numscanned = scanf(" %f", &a);
+					if (numscanned != 1) {
+						printf(" Error: Invalid input. Please enter a valid number.\n");
+					}
+				} while (numscanned != 1);
         result = sqroot(a);
-        if (result != -1) {
+        if (!isnan(result)) {
           printf("Result : √%g = %g\n", a, result);
         }
         break;
       }
       // Case 7: Exponentiation
       case 7: {
-        printf("Enter first number (base): ");
-        scanf(" %f", &a);
-        printf("Enter second number (exponent): ");
-        scanf(" %f", &b);
+				do {
+					printf("Enter first number (base): ");
+					numscanned = scanf(" %f", &a);
+					if (numscanned != 1) {
+						printf("Error: Invalid input. Please enter a valid number.\n");
+					}
+				} while (numscanned != 1);
+				do {
+					printf("Enter second number (exponent): ");
+					numscanned = scanf(" %f", &b);
+					if (numscanned != 1) {
+						printf("Error: Invalid input. Please enter a valid number.\n");
+					}
+				} while (numscanned != 1);
         result = power(a, b);
         printf("Result : %g ^ %g = %g\n", a, b, result); // I can use %e for scientific notation but %g is more visually appealing
         break;
       }
       // Case 8: Factorial
       case 8: {
-        printf("Enter a number: ");
-        if (scanf(" %f", &a) != 1 || (int)a != a) {
-          printf("Error: Invalid input. Please enter a positive integer.\n");
-          break;
-        }
+				do {
+					printf("Enter a number: ");
+					numscanned = scanf(" %f", &a);
+					if (numscanned != 1 || (int)a != a) {
+						printf("Error: Invalid input. Please enter a positive integer.\n");
+						break;
+					}
+				} while (numscanned != 1 || (int)a != a);
         result = fact(a);
-        if (result != -1) {
+        if (!isnan(result)) {
           printf("Result : %d! = %g\n", (int)a, result);
         }
         break;
       }
       // Case 9: Logarithm
       case 9: {
-        printf("Enter first number (argument): ");
-        scanf(" %f", &a);
-        printf("Enter second number (base): ");
-        scanf(" %f", &b);
+				do {
+					printf("Enter first number (argument): ");
+					numscanned = scanf(" %f", &a);
+					if (numscanned != 1) {
+						printf("Error: Invalid input. Please enter a valid number.\n");
+					}
+				} while (numscanned != 1);
+				do {
+					printf("Enter second number (base): ");
+					numscanned = scanf(" %f", &b);
+					if (numscanned != 1) {
+						printf("Error: Invalid input. Please enter a valid number.\n");
+					}
+				} while (numscanned != 1);
         result = logarithm(a, b);
         printf("Result : Log (%g) to base %g = %g\n", a, b, result);
         break;
@@ -167,14 +248,21 @@ int main(void) {
 					// go back to main menu 
 					break;
 				} else if (tchoice >= 1 && tchoice <= 6) {
-					printf("Enter the angle (in degrees): ");
-					scanf(" %f", &a);
-					result = trigo(a, tchoice);
-					if (isnan(result) == 0) {
-						printf("Result : Trigo ratio of %g = %g\n", a, result); // will need to improve the result display
-					}
+					do {
+						printf("Enter the angle (in degrees): ");
+						numscanned = scanf("%f", &a);
+						if (numscanned == 1) {
+							result = trigo(a, tchoice);
+							if (!isnan(result)) { // Checking if result is not 'NaN'
+								printf("%s ( %g ) = %g\n", tchoice == 1 ? "sin" : tchoice == 2 ? "cos" : tchoice == 3 ? "tan" : tchoice == 4 ? "cot" : tchoice == 5 ? "sec" : tchoice == 6 ? "cosec" : "Invalid function", a, result);
+								// Using ternary operator to display function name for conciseness, even though switch case was better option for readability.
+							}
+						} else {
+							printf("Error: Invalid input. Please enter a valid angle.\n");
+						}
+					} while (numscanned != 1); // Loop until valid (number) input is entered
 				} else {
-					printf("Invalid choice. Please Enter a digit from 0 to 6.\n");
+					printf("Error: Invalid choice. Please Enter a digit from 0 to 6.\n");
 				}
 				break;
 			}
@@ -184,7 +272,7 @@ int main(void) {
       }
       // Default case for invalid choice
       default: {
-        printf("Invalid choice. Please Enter a digit from 0 to 9.\n");
+        printf("Invalid choice. Please Enter a digit from 0 to 10.\n");
         break;
       }
     }
@@ -199,35 +287,36 @@ int main(void) {
     scanf(" %c", &repeat);
     
   } while (repeat == 'y');
+	
   // Displaying a thank you message at the end
-  if(repeat == 'n') {
+  if (repeat == 'n') {
     printf("\nCurse you, mundane calculations! Until next time, then.\nThank you for using the Awesome Math-inator!!\n");
   }
-  // Return 0 for successful execution
-  return 0;
+	
+  return 0; // Return 0 for successful execution
 }
 
 // Function to add two numbers and return the result
-float add(float x, float y) {
+double add(float x, float y) {
   return x + y;
 }
 
 // Function to subtract the second number from the first and return the result
-float subtract(float x, float y) {
+double subtract(float x, float y) {
   return x - y;
 }
 
 // Function to multiply two numbers and return the result
-float product(float x, float y) {
+double product(float x, float y) {
   return x * y;
 }
 
 // Function to divide the first number by the second and return the result
-float divide(float x, float y) {
+double divide(float x, float y) {
   // Check if the divisor is 0 to prevent division by zero
   if (y == 0) {
-    printf("Error: Division by 0 is undefined.\n");
-    return -1; // Returning -1 to indicate an error condition
+    printf("Error: Division by zero is undefined.\nPlease enter a Non-Zero Number\n");
+    return NAN; // Returning 'Not a Number' to indicate an error condition
   }
   return x / y;
 }
@@ -238,11 +327,11 @@ int rem(int x, int y) {
 }
 
 // Function to compute the square root of a number
-float sqroot(float x) {
+double sqroot(float x) {
   // Checking if the input is negative to prevent imaginary results
   if (x < 0) {
     printf("Error: Square Root of negative number is not Real.\n");
-    return -1; // Returning -1 to indicate an error condition
+    return NAN; // Returning 'Not a Number' to indicate an error condition
   }
   return sqrt(x);
 }
@@ -263,8 +352,8 @@ double power(float x, float y) {
 int fact(int x) {
   // Checking if the input is a non-negative integer
   if (x < 0 || (int)x != x) {
-    printf("Error: Factorial input must be a non-negative integer. Please input a positive whole number.\n");
-    return -1; // Returning -1 to indicate an error condition
+    printf("Error: Factorial input must be a non-negative integer.\nPlease input a positive whole number.\n");
+    return NAN; // Returning 'Not a Number' to indicate an error condition
   }
   // Base cases: 0! is 1 and 1! is 1
   if (x == 0 || x == 1) {
@@ -283,63 +372,43 @@ int fact(int x) {
   return factN;
 }
 
+// Function to compute the logarithm of a number to a given base
 double logarithm(float x, float b) {
-	return log(x) / log(b);
+	return log(x) / log(b); // Using the natural log function from the math.h library
 }
 
+// Function to calculate the values of trigonometric functions
 double trigo(float x, int r) {
-	double rad = x * (M_PI / 180.0);
+	double rad = x * (M_PI / 180.0); // Converting degrees to radians
+	double result;
 	switch(r) {
 		case 1:
-			if (fabs(sin(rad) - 0) < EPSILON) {
-				return 0.0;
-			} else {
-				return sin(rad);
-			}
-			break;
+			result = sin(rad);
+			return (fabs(result) < EPSILON) ? 0.0 : result;
 		case 2:
-			if (fabs(cos(rad) - 0) < EPSILON) {
-				return 0.0;
-			} else {
-				return cos(rad);
-			}
-			break;
+			result = cos(rad);
+			return (fabs(result) < EPSILON) ? 0.0 : result;
 		case 3:
-			if (fabs(cos(rad) - 0) < EPSILON) {
-				return INFINITY;
-			} else {
-			return tan(rad);
-			}
-			break;
+			result = tan(rad);
+			return (fabs(result) < EPSILON) ? INFINITY : result;
 		case 4:
-			if (fabs(tan(rad) - 0) < EPSILON) {
-				return INFINITY;
-			} else {
-				return 1 / tan(rad);
-			}
-			break;
+			result = tan(rad);
+			return (fabs(result) < EPSILON) ? INFINITY : 1 / result;
 		case 5:
-			if (fabs(cos(rad) - 0) < EPSILON) {
-				return INFINITY;
-			} else {
-				return 1 / cos(rad);
-			}
-			break;
+			result = cos(rad);
+			return (fabs(result) < EPSILON) ? INFINITY : 1 / result;
 		case 6:
-			if (fabs(sin(rad) - 0) < EPSILON) {
-				return INFINITY;
-			} else {
-				return 1 / sin(rad);
-			}
-			break;
+			result = sin(rad);
+			return (fabs(result) < EPSILON) ? INFINITY : 1 / result;
 		default:
 			printf("Invalid trigonometric function choice.\n");
 			return NAN;  // Default return value when no case matches
 	}
 }
 
+// Function to display the history of the last 5 calculations
 void displayHistory(double result, float history[], int *hCount) {
-  // Add result to history
+  // Checking for available space before Inserting result to history array
   if (*hCount < MAX_HISTORY) {
     history[*hCount] = result;
     (*hCount)++;
@@ -348,6 +417,7 @@ void displayHistory(double result, float history[], int *hCount) {
     for (int i = 0; i < MAX_HISTORY - 1; i++) {
       history[i] = history[i + 1];
     }
+		// Adding the new result to the end of the history array
     history[MAX_HISTORY - 1] = result;
   }
 
