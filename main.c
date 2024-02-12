@@ -1,9 +1,12 @@
 // Future Update: Add the features to perform unit conversion, stats functions, simplification of expressions, solution of simple algebra and many more. 
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
 // Defining Precision Tolerance
 #define EPSILON 1e-6
+// Defining Max size of Dataset
+#define MAX_SIZE 100
 // Defining maximum history size
 #define MAX_HISTORY 5 
 
@@ -18,6 +21,8 @@ double power(float x, float y);    // Raises x to the power of y
 int fact(int x);                   // Calculates the factorial of x
 double logarithm(float x, float b);   // Log of (x) to the base b
 double trigo(float x, int r); 		 // Trigonometric functions
+int compare(const void *a, const void *b); // Array Sorting function for qsort
+double stats(float arr[], int n, int subChoice); // Statistics functions
 
 void displayHistory(double result, float history[], int *hCount); // Displays the recent history of results
 
@@ -36,11 +41,12 @@ int main(void) {
   printf("8. Factorial (!)\n");
   printf("9. Logarithm (log)\n");
   printf("10. Trigonometry\n");
+  printf("11. Statistics\n");
   printf("0. Exit\n");
   
   // Declaring variables
   int choice;     // User's choice for the operation
-	int tchoice;		// User's choice for trigonometric function
+	int subChoice;		// User's choice for Sub Menus
   float a, b;     // Input numbers for calculations
 	int numscanned; // Input Validation
   double result;  // Result of the mathematical operation
@@ -51,7 +57,7 @@ int main(void) {
   // Main loop for user interactions
   do {
     // Prompting user for choice
-    printf("\nEnter your choice (0 - 10) : ");
+    printf("\nEnter your choice (0 - 11) : ");
     scanf(" %d", &choice);
 		
     // Switch statement to handle different user choices
@@ -243,24 +249,72 @@ int main(void) {
 				printf("0. Back to main menu\n");
 				// Prompting user for choice
 				printf("\nEnter your choice (0 - 6) : ");
-				scanf(" %d", &tchoice);
-				if (tchoice == 0) {
+				scanf(" %d", &subChoice);
+				if (subChoice == 0) {
 					// go back to main menu 
 					break;
-				} else if (tchoice >= 1 && tchoice <= 6) {
+				} else if (subChoice >= 1 && subChoice <= 6) {
 					do {
 						printf("Enter the angle (in degrees): ");
 						numscanned = scanf("%f", &a);
 						if (numscanned == 1) {
-							result = trigo(a, tchoice);
+							result = trigo(a, subChoice);
 							if (!isnan(result)) { // Checking if result is not 'NaN'
-								printf("%s ( %g ) = %g\n", tchoice == 1 ? "sin" : tchoice == 2 ? "cos" : tchoice == 3 ? "tan" : tchoice == 4 ? "cot" : tchoice == 5 ? "sec" : tchoice == 6 ? "cosec" : "Invalid function", a, result);
+								printf("%s ( %g ) = %g\n", subChoice == 1 ? "sin" : subChoice == 2 ? "cos" : subChoice == 3 ? "tan" : subChoice == 4 ? "cot" : subChoice == 5 ? "sec" : subChoice == 6 ? "cosec" : "Invalid function", a, result);
 								// Using ternary operator to display function name for conciseness, even though switch case was better option for readability.
 							}
 						} else {
 							printf("Error: Invalid input. Please enter a valid angle.\n");
 						}
 					} while (numscanned != 1); // Loop until valid (number) input is entered
+				} else {
+					printf("Error: Invalid choice. Please Enter a digit from 0 to 6.\n");
+				}
+				break;
+			}
+			// Case 11: Statistics
+			case 11: {
+				//  Displaying the available statistical operations
+				printf("\nAvailable Statistical Operations (for univariate samples only):\n");
+				printf("1. Arithmetic Mean\n");
+				printf("2. Median\n");
+				printf("3. Mode\n");
+				printf("4. Variance\n");
+				printf("5. Standard Deviation\n");
+				printf("0. Back to main menu\n");
+				// Prompting user for choice
+				printf("\nEnter your choice (0 - 5) : ");
+				scanf(" %d", &subChoice);
+				if (subChoice == 0) {
+					// go back to main menu 
+					break;
+				} else if (subChoice >= 1 && subChoice <= 5) {
+					do {
+						float arr[MAX_SIZE];
+						int n;
+						do {
+							// Asking the user for the number of elements
+							printf("Enter the number of elements (upto %d): ", MAX_SIZE);
+							scanf("%d", &n);
+							if (n <= 0 || n > MAX_SIZE) {
+								printf("Error: Invalid input. Please enter a valid number.\n");
+							}
+						} while (n <= 0 || n > MAX_SIZE);
+						// Prompt the user to enter the elements of the array
+						printf("Enter the elements of the dataset:\n");
+						for (int i = 0; i < n; i++) {
+							numscanned = scanf(" %f", &arr[i]);
+						}
+						if (numscanned == 1) {
+							result = stats(arr, n, subChoice);
+							if (!isnan(result)) { // Checking if result is not 'NaN'
+								printf("%s of the given dataset = %g\n", subChoice == 1 ? "Mean" : subChoice == 2 ? "Median" : subChoice == 3 ? "Mode" : subChoice == 4 ? "Variance" : subChoice == 5 ? "Standard Deviation" : "Invalid function", result);
+								// Using ternary operator to display function name for conciseness, even though switch case was better option for readability.
+							}
+						} else {
+							printf("Error: Invalid input. Please enter valid data.\n");
+						}
+					} while (numscanned != 1); // Loop until valid samples are entered
 				} else {
 					printf("Error: Invalid choice. Please Enter a digit from 0 to 6.\n");
 				}
@@ -402,6 +456,68 @@ double trigo(float x, int r) {
 			return (fabs(result) < EPSILON) ? INFINITY : 1 / result;
 		default:
 			printf("Invalid trigonometric function choice.\n");
+			return NAN;  // Default return value when no case matches
+	}
+}
+
+int compare(const void *a, const void *b) {
+	return (*(int *)a - *(int *)b);
+}
+
+// Fuction to Calculate the values of statistical Operations (Central Tendency & Dispersion)
+double stats(float arr[], int n, int subChoice) {
+	switch(subChoice) {
+		case 1: {
+			double sum = 0;
+			for (int i = 0; i < n; i++) {
+				sum += arr[i];
+			}
+			return sum / n;
+		}
+		case 2: {
+			// Sorting the Array
+			qsort(arr, n, sizeof(float), compare);
+			// If the number of element is odd, returning the middle element
+			if (n % 2 != 0) {
+				return arr[n / 2];
+			}
+			// If the number of element is even, returning the average of the middle two elements
+			else {
+				return (arr[n / 2 - 1] + arr[n / 2]) / 2.0;
+			}
+		}
+		case 3: {
+			// Need to explore the hash-map approach to reduce the time complexity
+			// Need to improve code to handle multiple modes, like in dataset: [1, 1, 2, 2, 3, 3]
+			int maxCount = 0;
+			float mode_value = 0;
+			for (int i = 0; i < n; i++) {
+				int count = 0;
+				for (int j = 0; j < n; j++) {
+					if (arr[j] == arr[i]) {
+						count++;
+					}
+				}
+				if (count > maxCount) {
+					maxCount = count;
+					mode_value = arr[i];
+				}
+			}
+			return mode_value;
+		}
+		case 4: {
+			double mean_value = stats(arr, n, 1);
+			double variance = 0;
+			for (int i = 0; i < n; i++) {
+				variance += pow(arr[i] - mean_value, 2);
+			}
+			return variance / n;
+		}
+		case 5: {
+			return sqrt(stats(arr, n, 4));
+		}
+		default:
+			printf("Invalid statistical function choice.\n");
 			return NAN;  // Default return value when no case matches
 	}
 }
