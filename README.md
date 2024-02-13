@@ -1,9 +1,9 @@
 # Awesome Math-inator #
-**The _Awesome Math-inator_ is a user-friendly C program that serves as a versatile calculator. It supports a range of mathematical operations, including basic arithmetic, square root calculations, exponentiation, and factorials.**
+**The _Awesome Math-inator_ is a user-friendly C program that serves as a versatile calculator. It supports a range of mathematical operations, including basic arithmetic, square root calculations, exponentiation, factorial, trigonometric and statistical calculations**
 
 ## How to Use ##
 - Run the program.[^1]
-- Choose an operation by entering the corresponding number (1 - 9).
+- Choose an operation by entering the corresponding number (1 - 11).
 - Follow the prompts to input the required numbers.
 - Receive the result of your calculation.
 
@@ -11,7 +11,7 @@ Note: _The Math-inator supports both real and integer numbers. It provides infor
 
 ## Features ##
 - Basic Arithmetic: Addition, subtraction, multiplication, and division.
-- Advanced Functions: Square root, exponentiation, and factorial calculations.
+- Advanced Functions: Square root, exponentiation, factorial, trigonometric and statistical calculations.
 - Mini-History: View the last 5 calculation results for quick reference.
 
 ## [^1]: How to Run ##
