@@ -1,0 +1,31 @@
+# Build Outputs
+build/
+*.o
+*.out
+*.exe
+
+# Compiled Binaries
+mathinator
+main
+main-debug
+
+# Debug Files
+*.dSYM
+*.stackdump
+
+# VS Code Settings
+.vscode/
+
+# Replit Files (old)
+.replit
+.breakpoints
+replit.nix
+
+# CCLS Cache
+.ccls-cache/
+
+# macOS
+.DS_Store
+
+# Linux
+*~

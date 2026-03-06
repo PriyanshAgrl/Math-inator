@@ -2,29 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
-// Defining Precision Tolerance
-#define EPSILON 1e-6
-// Defining Max size of Dataset
-#define MAX_SIZE 100
-// Defining maximum history size
-#define MAX_HISTORY 5 
-
-// Function Declaration Prototypes
-double add(float x, float y);      // Adds two numbers and returns the result
-double subtract(float x, float y); // Subtracts y from x and returns the result
-double product(float x, float y);  // Multiplies two numbers and returns the result
-double divide(float x, float y);   // Divides x by y and returns the result
-int rem(int x, int y);             // Calculates the remainder of x divided by y
-double sqroot(float x);            // Computes the square root of x
-double power(float x, float y);    // Raises x to the power of y
-int fact(int x);                   // Calculates the factorial of x
-double logarithm(float x, float b);   // Log of (x) to the base b
-double trigo(float x, int r); 		 // Trigonometric functions
-int compare(const void *a, const void *b); // Array Sorting function for qsort
-double stats(float arr[], int n, int subChoice); // Statistics functions
-
-void displayHistory(double result, float history[], int *hCount); // Displays the recent history of results
+#include "arithmetic.h"
+#include "trigo.h"
+#include "stats.h"
+#include "history.h"
 
 int main(void) {
   // Greeting the user!
@@ -290,16 +271,16 @@ int main(void) {
 					break;
 				} else if (subChoice >= 1 && subChoice <= 5) {
 					do {
-						float arr[MAX_SIZE];
+						float arr[MAX_DATASET_SIZE];
 						int n;
 						do {
 							// Asking the user for the number of elements
-							printf("Enter the number of elements (upto %d): ", MAX_SIZE);
+							printf("Enter the number of elements (upto %d): ", MAX_DATASET_SIZE);
 							scanf("%d", &n);
-							if (n <= 0 || n > MAX_SIZE) {
+							if (n <= 0 || n > MAX_DATASET_SIZE) {
 								printf("Error: Invalid input. Please enter a valid number.\n");
 							}
-						} while (n <= 0 || n > MAX_SIZE);
+						} while (n <= 0 || n > MAX_DATASET_SIZE);
 						// Prompt the user to enter the elements of the array
 						printf("Enter the elements of the dataset:\n");
 						for (int i = 0; i < n; i++) {
@@ -348,201 +329,4 @@ int main(void) {
   }
 	
   return 0; // Return 0 for successful execution
-}
-
-// Function to add two numbers and return the result
-double add(float x, float y) {
-  return x + y;
-}
-
-// Function to subtract the second number from the first and return the result
-double subtract(float x, float y) {
-  return x - y;
-}
-
-// Function to multiply two numbers and return the result
-double product(float x, float y) {
-  return x * y;
-}
-
-// Function to divide the first number by the second and return the result
-double divide(float x, float y) {
-  // Check if the divisor is 0 to prevent division by zero
-  if (y == 0) {
-    printf("Error: Division by zero is undefined.\nPlease enter a Non-Zero Number\n");
-    return NAN; // Returning 'Not a Number' to indicate an error condition
-  }
-  return x / y;
-}
-
-// Function to calculate the remainder when the first number is divided by the second
-int rem(int x, int y) {
-  return x % y;
-}
-
-// Function to compute the square root of a number
-double sqroot(float x) {
-  // Checking if the input is negative to prevent imaginary results
-  if (x < 0) {
-    printf("Error: Square Root of negative number is not Real.\n");
-    return NAN; // Returning 'Not a Number' to indicate an error condition
-  }
-  return sqrt(x);
-}
-
-// Function to raise the first number to the power of the second
-double power(float x, float y) {
-  // Checking if the exponent is negative
-  if (y < 0) {
-    // Handling negative exponents by calculating the reciprocal of positive exponent
-    double result = pow(x, -y);
-    return (result == 0) ? INFINITY : 1.0 / result;
-  }
-  // If exponent is non-negative, use the standard pow function
-  return pow(x, y);
-}
-
-// Function to calculate the factorial of a non-negative integer
-int fact(int x) {
-  // Checking if the input is a non-negative integer
-  if (x < 0 || (int)x != x) {
-    printf("Error: Factorial input must be a non-negative integer.\nPlease input a positive whole number.\n");
-    return NAN; // Returning 'Not a Number' to indicate an error condition
-  }
-  // Base cases: 0! is 1 and 1! is 1
-  if (x == 0 || x == 1) {
-    return 1;
-  }
-/*
-  int factN = fact(x-1) * x; // Recursive case: x! = x * (x-1)!
-  Cancelled recursion because of potential stack overflow
-*/
-  // Iterative approach: x! = x * (x-1) * (x-2) * ... * 1
-  // Calculate the factorial iteratively
-  int factN = 1;
-  for (int i = 1; i <= x; i++) { // Iterative approach: x! = 1 * 2 * ... * (x-1) * x
-    factN *= i;
-  } 
-  return factN;
-}
-
-// Function to compute the logarithm of a number to a given base
-double logarithm(float x, float b) {
-	return log(x) / log(b); // Using the natural log function from the math.h library
-}
-
-// Function to calculate the values of trigonometric functions
-double trigo(float x, int r) {
-	double rad = x * (M_PI / 180.0); // Converting degrees to radians
-	double result;
-	switch(r) {
-		case 1:
-			result = sin(rad);
-			return (fabs(result) < EPSILON) ? 0.0 : result;
-		case 2:
-			result = cos(rad);
-			return (fabs(result) < EPSILON) ? 0.0 : result;
-		case 3:
-			result = tan(rad);
-			return (fabs(result) < EPSILON) ? INFINITY : result;
-		case 4:
-			result = tan(rad);
-			return (fabs(result) < EPSILON) ? INFINITY : 1 / result;
-		case 5:
-			result = cos(rad);
-			return (fabs(result) < EPSILON) ? INFINITY : 1 / result;
-		case 6:
-			result = sin(rad);
-			return (fabs(result) < EPSILON) ? INFINITY : 1 / result;
-		default:
-			printf("Invalid trigonometric function choice.\n");
-			return NAN;  // Default return value when no case matches
-	}
-}
-
-int compare(const void *a, const void *b) {
-	return (*(int *)a - *(int *)b);
-}
-
-// Fuction to Calculate the values of statistical Operations (Central Tendency & Dispersion)
-double stats(float arr[], int n, int subChoice) {
-	switch(subChoice) {
-		case 1: {
-			double sum = 0;
-			for (int i = 0; i < n; i++) {
-				sum += arr[i];
-			}
-			return sum / n;
-		}
-		case 2: {
-			// Sorting the Array
-			qsort(arr, n, sizeof(float), compare);
-			// If the number of element is odd, returning the middle element
-			if (n % 2 != 0) {
-				return arr[n / 2];
-			}
-			// If the number of element is even, returning the average of the middle two elements
-			else {
-				return (arr[n / 2 - 1] + arr[n / 2]) / 2.0;
-			}
-		}
-		case 3: {
-			// Need to explore the hash-map approach to reduce the time complexity
-			// Need to improve code to handle multiple modes, like in dataset: [1, 1, 2, 2, 3, 3]
-			int maxCount = 0;
-			float mode_value = 0;
-			for (int i = 0; i < n; i++) {
-				int count = 0;
-				for (int j = 0; j < n; j++) {
-					if (arr[j] == arr[i]) {
-						count++;
-					}
-				}
-				if (count > maxCount) {
-					maxCount = count;
-					mode_value = arr[i];
-				}
-			}
-			return mode_value;
-		}
-		case 4: {
-			double mean_value = stats(arr, n, 1);
-			double variance = 0;
-			for (int i = 0; i < n; i++) {
-				variance += pow(arr[i] - mean_value, 2);
-			}
-			return variance / n;
-		}
-		case 5: {
-			return sqrt(stats(arr, n, 4));
-		}
-		default:
-			printf("Invalid statistical function choice.\n");
-			return NAN;  // Default return value when no case matches
-	}
-}
-
-// Function to display the history of the last 5 calculations
-void displayHistory(double result, float history[], int *hCount) {
-  // Checking for available space before Inserting result to history array
-  if (*hCount < MAX_HISTORY) {
-    history[*hCount] = result;
-    (*hCount)++;
-  } else {
-    // Shifting values to accommodate new result, if history is full
-    for (int i = 0; i < MAX_HISTORY - 1; i++) {
-      history[i] = history[i + 1];
-    }
-		// Adding the new result to the end of the history array
-    history[MAX_HISTORY - 1] = result;
-  }
-
-  // Displaying the history
-  printf("\nMini-History (last %d results): ", MAX_HISTORY);
-
-  // Displaying the last 'history count' results
-  for (int i = *hCount - 1; i >= 0; i--) {
-    printf("%g,\t", history[i]);
-  }
-  printf("\n");
 }
