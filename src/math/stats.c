@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "stats.h"
+#include "math/stats.h"
 
 int compare(const void *a, const void *b)
 {

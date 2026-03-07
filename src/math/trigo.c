@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <math.h>
-#include "trigo.h"
+#include "math/trigo.h"
 
 // Function to calculate the values of trigonometric functions
-double trigo(float x, int r) {
+double trigo(double x, int r) {
 	double rad = x * (M_PI / 180.0); // Converting degrees to radians
 	double result;
 	switch(r) {

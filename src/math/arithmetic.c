@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <math.h>
-#include "arithmetic.h"
+#include "math/arithmetic.h"
 // Function to add two numbers and return the result
 double add(double x, double y) {
   return x + y;

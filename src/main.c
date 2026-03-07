@@ -1,8 +1,10 @@
 // Future Update: Add the features to perform unit conversion, stats functions, simplification of expressions, solution of simple algebra and many more.
-#include "arithmetic.h"
-#include "history.h"
-#include "stats.h"
-#include "trigo.h"
+#include "math/arithmetic.h"
+#include "math/trigo.h"
+#include "math/stats.h"
+#include "cli/history.h"
+#include "cli/parser.h"
+#include "core/types.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -29,7 +31,7 @@ int main(void) {
 	int choice;					 // User's choice for the operation
 	int subChoice;				 // User's choice for Sub Menus
 	double a, b;				 // Input numbers for calculations
-	int numscanned;				 // Input Validation
+	int numscanned = 0;				 // Input Validation
 	double result = NAN;		 // Result of the mathematical operation
 	char repeat;				 // User's choice to restart for another calculation
 	double history[MAX_HISTORY]; // Array to store history

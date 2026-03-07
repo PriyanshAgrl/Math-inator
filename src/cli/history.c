@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "history.h"
+#include "cli/history.h"
 
 // Function to display the history of the last 5 calculations
 void displayHistory(double result, double history[], int *hCount) {
