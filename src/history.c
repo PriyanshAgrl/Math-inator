@@ -2,7 +2,7 @@
 #include "history.h"
 
 // Function to display the history of the last 5 calculations
-void displayHistory(double result, float history[], int *hCount) {
+void displayHistory(double result, double history[], int *hCount) {
   // Checking for available space before Inserting result to history array
   if (*hCount < MAX_HISTORY) {
     history[*hCount] = result;
@@ -21,7 +21,7 @@ void displayHistory(double result, float history[], int *hCount) {
 
   // Displaying the last 'history count' results
   for (int i = *hCount - 1; i >= 0; i--) {
-    printf("%g,\t", history[i]);
+    printf("%g\t", history[i]);
   }
   printf("\n");
 }

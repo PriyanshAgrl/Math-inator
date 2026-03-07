@@ -4,6 +4,6 @@
 // Defining maximum history size
 #define MAX_HISTORY 5 
 
-void displayHistory(double result, float history[], int *hCount); // Displays the recent history of results
+void displayHistory(double result, double history[], int *hCount); // Displays the recent history of results
 
 #endif

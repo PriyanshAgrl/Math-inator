@@ -1,13 +1,20 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 #include "stats.h"
 
-int compare(const void *a, const void *b) {
-	return (*(int *)a - *(int *)b);
+int compare(const void *a, const void *b)
+{
+    double fa = *(double*)a;
+    double fb = *(double*)b;
+
+    if (fa < fb) return -1;
+    if (fa > fb) return 1;
+    return 0;
 }
 
 // Fuction to Calculate the values of statistical Operations (Central Tendency & Dispersion)
-double stats(float arr[], int n, int subChoice) {
+double stats(double arr[], int n, int subChoice) {
 	switch(subChoice) {
 		case 1: {
 			double sum = 0;
@@ -18,7 +25,7 @@ double stats(float arr[], int n, int subChoice) {
 		}
 		case 2: {
 			// Sorting the Array
-			qsort(arr, n, sizeof(float), compare);
+			qsort(arr, n, sizeof(double), compare);
 			// If the number of element is odd, returning the middle element
 			if (n % 2 != 0) {
 				return arr[n / 2];

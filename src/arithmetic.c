@@ -2,22 +2,22 @@
 #include <math.h>
 #include "arithmetic.h"
 // Function to add two numbers and return the result
-double add(float x, float y) {
+double add(double x, double y) {
   return x + y;
 }
 
 // Function to subtract the second number from the first and return the result
-double subtract(float x, float y) {
+double subtract(double x, double y) {
   return x - y;
 }
 
 // Function to multiply two numbers and return the result
-double product(float x, float y) {
+double product(double x, double y) {
   return x * y;
 }
 
 // Function to divide the first number by the second and return the result
-double divide(float x, float y) {
+double divide(double x, double y) {
   // Check if the divisor is 0 to prevent division by zero
   if (y == 0) {
     printf("Error: Division by zero is undefined.\nPlease enter a Non-Zero Number\n");
@@ -32,7 +32,7 @@ int rem(int x, int y) {
 }
 
 // Function to compute the square root of a number
-double sqroot(float x) {
+double sqroot(double x) {
   // Checking if the input is negative to prevent imaginary results
   if (x < 0) {
     printf("Error: Square Root of negative number is not Real.\n");
@@ -42,7 +42,7 @@ double sqroot(float x) {
 }
 
 // Function to raise the first number to the power of the second
-double power(float x, float y) {
+double power(double x, double y) {
   // Checking if the exponent is negative
   if (y < 0) {
     // Handling negative exponents by calculating the reciprocal of positive exponent
@@ -54,7 +54,7 @@ double power(float x, float y) {
 }
 
 // Function to calculate the factorial of a non-negative integer
-int fact(int x) {
+double fact(int x) {
   // Checking if the input is a non-negative integer
   if (x < 0 || (int)x != x) {
     printf("Error: Factorial input must be a non-negative integer.\nPlease input a positive whole number.\n");
@@ -70,7 +70,7 @@ int fact(int x) {
 */
   // Iterative approach: x! = x * (x-1) * (x-2) * ... * 1
   // Calculate the factorial iteratively
-  int factN = 1;
+  double factN = 1.0;
   for (int i = 1; i <= x; i++) { // Iterative approach: x! = 1 * 2 * ... * (x-1) * x
     factN *= i;
   } 
@@ -78,6 +78,6 @@ int fact(int x) {
 }
 
 // Function to compute the logarithm of a number to a given base
-double logarithm(float x, float b) {
+double logarithm(double x, double b) {
 	return log(x) / log(b); // Using the natural log function from the math.h library
 }
