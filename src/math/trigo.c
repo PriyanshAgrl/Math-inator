@@ -2,31 +2,31 @@
 #include <math.h>
 #include "math/trigo.h"
 
-// Function to calculate the values of trigonometric functions
-double trigo(double x, int r) {
-	double rad = x * (M_PI / 180.0); // Converting degrees to radians
-	double result;
-	switch(r) {
-		case 1:
-			result = sin(rad);
-			return (fabs(result) < EPSILON) ? 0.0 : result;
-		case 2:
-			result = cos(rad);
-			return (fabs(result) < EPSILON) ? 0.0 : result;
-		case 3:
-			result = tan(rad);
-			return (fabs(result) < EPSILON) ? INFINITY : result;
-		case 4:
-			result = tan(rad);
-			return (fabs(result) < EPSILON) ? INFINITY : 1 / result;
-		case 5:
-			result = cos(rad);
-			return (fabs(result) < EPSILON) ? INFINITY : 1 / result;
-		case 6:
-			result = sin(rad);
-			return (fabs(result) < EPSILON) ? INFINITY : 1 / result;
-		default:
-			printf("Invalid trigonometric function choice.\n");
-			return NAN;  // Default return value when no case matches
-	}
+double trigo_sin(double radian){
+	double result = sin(radian);
+	return (fabs(result) < ZERO_TOLERANCE) ? 0.0 : result;
+}
+double trigo_cos(double radian){
+	double result = cos(radian);
+	return (fabs(result) < ZERO_TOLERANCE) ? 0.0 : result;
+}
+double trigo_tan(double radian){
+	if (fabs(cos(radian)) < ZERO_TOLERANCE)
+        return INFINITY;
+    return tan(radian);
+}
+double trigo_cot(double radian){
+	if (fabs(sin(radian)) < ZERO_TOLERANCE)
+        return INFINITY;
+    return cos(radian)/sin(radian);
+}
+double trigo_sec(double radian){
+	if (fabs(cos(radian)) < ZERO_TOLERANCE)
+        return INFINITY;
+    return 1.0 / cos(radian);
+}
+double trigo_cosec(double radian){
+	if (fabs(sin(radian)) < ZERO_TOLERANCE)
+        return INFINITY;
+    return 1.0 /sin(radian);
 }
