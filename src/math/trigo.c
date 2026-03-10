@@ -1,6 +1,14 @@
 #include <stdio.h>
 #include <math.h>
+#include "core/math_constants.h"
 #include "math/trigo.h"
+
+/* KNOWN BEHAVIOUR: tan(90deg), cot(0deg), sec(90deg), cosec(0deg)
+ * Currently returns MATHINATOR_UNDEF with stderr output.
+ * FUTURE: Consider treating INFINITY as valid stdout result
+ * for engineering/piping use cases where caller handles inf.
+ * Tracked for edge-case handling pass after all modules complete.
+ */
 
 double trigo_sin(double radian){
 	double result = sin(radian);

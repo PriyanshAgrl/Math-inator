@@ -1,10 +1,15 @@
 #ifndef STATS_H
 #define STATS_H
 
-// Defining Max size of Dataset
-#define MAX_DATASET_SIZE 100
+// Defining Max size of Datasets
+#define MAX_CLI_ARGS 20 // Max Operands via command-line
+#define MAX_DATASET_SIZE 100000 // Max elements via CSV file input (future) or CLI
 
-int compare(const void *a, const void *b); // Array Sorting function for qsort
-double stats(double arr[], int n, int subChoice); // Statistics functions
+// Statistics functions
+double stats_mean(double arr[], int n);
+double stats_median(double arr[], int n);
+double stats_mode(double arr[], int n);
+double stats_variance(double arr[], int n);
+double stats_stddev(double arr[], int n);
 
-#endif
+#endif // STATS_H

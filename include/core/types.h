@@ -19,4 +19,4 @@ typedef enum {
   MATHINATOR_EXIT_UNDEFINED = 2, // mathematically undefined result or out of function domain
 } mathinator_exit_code;
 
-#endif
+#endif // MATHINATOR_CORE_TYPES_H

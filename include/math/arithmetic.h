@@ -11,4 +11,4 @@ double power(double x, double y);    // Raises x to the power of y
 double fact(double x);                   // Calculates the factorial of x
 double logarithm(double x, double b);   // Log of (x) to the base b
 
-#endif
+#endif // ARITHMETIC_H

@@ -5,4 +5,4 @@
 
 result_t parse_and_dispatch(int argc, char* argv[]);
 
-#endif
+#endif // PARSER_H
